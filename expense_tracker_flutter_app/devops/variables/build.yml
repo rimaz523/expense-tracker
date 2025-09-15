@@ -1,0 +1,9 @@
+variables:
+- name: buildImage
+  value: macos-latest
+- name: flutterVersion
+  value: 3.35.3
+- name: androidArtifactPath
+  value: build/app/outputs/flutter-apk/app-release.apk
+- name: iosArtifactPath
+  value: build/ios/ipa/expense_tracker_flutter_app.ipa
