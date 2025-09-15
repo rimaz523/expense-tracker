@@ -9,10 +9,8 @@ pool:
   vmImage: '$(buildImage)'
 
 steps:
-  - task: Hey24sheep.flutter.flutter-install.FlutterInstall@0
-    inputs:
-      channel: 'stable'
-      version: '$(flutterVersion)'
+  - script: flutter --version
+    displayName: 'Check Flutter version'
 
   - script: flutter pub get
     displayName: 'Install dependencies'
