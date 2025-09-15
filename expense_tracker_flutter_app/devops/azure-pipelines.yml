@@ -37,7 +37,6 @@ steps:
     displayName: 'Build iOS IPA (unsigned)'
 
   - task: CopyFiles@2
-    workingDirectory: 'expense_tracker_flutter_app'
     inputs:
       contents: |
         $(androidArtifactPath)
