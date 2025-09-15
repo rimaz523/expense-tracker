@@ -9,8 +9,9 @@ pool:
   vmImage: '$(buildImage)'
 
 steps:
-  - task: UseFlutterVersion@0
+  - task: FlutterInstall@0
     inputs:
+      channel: 'stable'
       version: '$(flutterVersion)'
 
   - script: flutter pub get
