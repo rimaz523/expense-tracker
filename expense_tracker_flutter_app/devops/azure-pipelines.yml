@@ -21,18 +21,23 @@ steps:
     displayName: 'Check Flutter version'
 
   - script: flutter pub get
+    workingDirectory: 'expense_tracker_flutter_app'
     displayName: 'Install dependencies'
 
   - script: flutter test
+    workingDirectory: 'expense_tracker_flutter_app'
     displayName: 'Run Dart & Flutter tests'
 
   - script: flutter build apk --release
+    workingDirectory: 'expense_tracker_flutter_app'
     displayName: 'Build Android APK'
 
   - script: flutter build ios --release --no-codesign
+    workingDirectory: 'expense_tracker_flutter_app'
     displayName: 'Build iOS IPA (unsigned)'
 
   - task: CopyFiles@2
+    workingDirectory: 'expense_tracker_flutter_app'
     inputs:
       contents: |
         $(androidArtifactPath)
