@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "402542804773",
+    "project_id": "rupeo-expense-tracker",
+    "storage_bucket": "rupeo-expense-tracker.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:402542804773:android:76524b2f2a22c123fda4cc",
+        "android_client_info": {
+          "package_name": "com.rupeo.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKU5cSvGhjbhfkKG2M5qzTjj7rt2xt5FI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

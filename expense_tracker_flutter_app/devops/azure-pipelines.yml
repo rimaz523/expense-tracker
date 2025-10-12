@@ -4,6 +4,7 @@ trigger:
       - master
 variables:
   - template: variables/build.yml
+  - group: FlutterDistributionVars
 
 pool:
   vmImage: '$(buildImage)'
@@ -31,22 +32,35 @@ steps:
   - script: flutter build apk --release
     workingDirectory: 'expense_tracker_flutter_app'
     displayName: 'Build Android APK'
-
-  - script: flutter build ios --release --no-codesign
-    workingDirectory: 'expense_tracker_flutter_app'
-    displayName: 'Build iOS IPA (unsigned)'
+  # TODO : handle iOS builds later.
+  # - script: flutter build ios --release --no-codesign
+  #   workingDirectory: 'expense_tracker_flutter_app'
+  #   displayName: 'Build iOS IPA (unsigned)'
 
   - task: CopyFiles@2
     inputs:
-      contents: |
-        $(androidArtifactPath)
-        $(iosArtifactPath)
+      contents: '**/app-release.apk'
       targetFolder: '$(Build.ArtifactStagingDirectory)'
     displayName: 'Collect build artifacts'
 
   - task: PublishBuildArtifacts@1
     inputs:
       pathToPublish: '$(Build.ArtifactStagingDirectory)'
-      artifactName: 'flutter-builds'
+      artifactName: 'apk'
       publishLocation: 'Container'
-    displayName: 'Publish artifacts for download'
+    displayName: 'Publish artifacts for distribution'
+
+  - task: DownloadBuildArtifacts@1
+    inputs:
+      artifactName: 'apk'
+      downloadPath: '$(Pipeline.Workspace)'
+
+  - script: |
+      curl -sL https://firebase.tools | bash
+      firebase appdistribution:distribute "$(Pipeline.Workspace)/apk/app-release.apk" \
+        --app "$(androidAppId)" \
+        --token "$(FIREBASE_TOKEN)" \
+        --groups "Testers"
+    displayName: 'Upload APK to Firebase'
+    env:
+      FIREBASE_TOKEN: $(FIREBASE_TOKEN)
