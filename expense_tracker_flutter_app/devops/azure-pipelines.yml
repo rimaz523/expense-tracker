@@ -20,7 +20,7 @@ stages:
 
   - stage: 'Distribute'
     dependsOn: 'Build'
-    condition: and (succeeded(), eq(variables['Build.SourceBranchName'], 'master'))
+    condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'master'))
     pool:
       vmImage: '$(deployImage)'
     displayName: 'Distribute to Firebase'
