@@ -9,7 +9,8 @@ variables:
 
 stages:
   - stage: 'Build'
-    pool: '$(buildImage)'
+    pool:
+      vmImage: '$(buildImage)'
     displayName: 'Build the flutter iOS & Android apps'
     jobs:
       - job: 'Build'
@@ -18,7 +19,8 @@ stages:
           - template: './steps/build.yml'
 
   - stage: 'Distribute'
-    pool: '$(deployImage)'
+    pool:
+      vmImage: '$(deployImage)'
     displayName: 'Distribute to Firebase'
     dependsOn: 'Build'
     variables:
