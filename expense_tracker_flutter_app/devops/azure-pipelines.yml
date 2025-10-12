@@ -3,18 +3,12 @@ trigger:
     include:
       - master
 
-pr:
-  branches:
-    include:
-      - master
-
 variables:
   - template: variables/build.yml
   - template: variables/deploy.yml
 
 stages:
   - stage: 'Build'
-    condition: eq(variables['Build.Reason'], 'PullRequest')
     pool:
       vmImage: '$(buildImage)'
     displayName: 'Build the flutter iOS & Android apps'
@@ -26,7 +20,7 @@ stages:
 
   - stage: 'Distribute'
     dependsOn: 'Build'
-    condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'master'), ne(variables['Build.Reason'], 'PullRequest'))
+    condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'master'))
     pool:
       vmImage: '$(deployImage)'
     displayName: 'Distribute to Firebase'
