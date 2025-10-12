@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.rupeo.dev">
     <application
-        android:label="expense_tracker_flutter_app"
+        android:label="Rupeo"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
