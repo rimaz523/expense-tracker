@@ -1,0 +1,15 @@
+steps:
+  - task: DownloadBuildArtifacts@1
+    inputs:
+      artifactName: 'apk'
+      downloadPath: '$(Pipeline.Workspace)'
+
+  - script: |
+      curl -sL https://firebase.tools | bash
+      firebase appdistribution:distribute "$(Pipeline.Workspace)/apk/expense_tracker_flutter_app/build/app/outputs/flutter-apk/app-release.apk" \
+        --app "$(androidAppId)" \
+        --token "$(FIREBASE_TOKEN)" \
+        --groups "Testers"
+    displayName: 'Upload APK to Firebase'
+    env:
+      FIREBASE_TOKEN: $(FIREBASE_TOKEN)

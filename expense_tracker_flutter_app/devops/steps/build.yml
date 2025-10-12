@@ -1,0 +1,40 @@
+steps:
+  - script: |
+      git clone https://github.com/flutter/flutter.git -b stable
+      echo "##vso[task.setvariable variable=PATH]$(Build.SourcesDirectory)/flutter/bin:$PATH"
+    displayName: 'Install Flutter SDK manually'
+
+  - script: flutter doctor
+    displayName: 'Verify Flutter installation'
+
+  - script: flutter --version
+    displayName: 'Check Flutter version'
+
+  - script: flutter pub get
+    workingDirectory: 'expense_tracker_flutter_app'
+    displayName: 'Install dependencies'
+
+  - script: flutter test
+    workingDirectory: 'expense_tracker_flutter_app'
+    displayName: 'Run Dart & Flutter tests'
+
+  - script: flutter build apk --release
+    workingDirectory: 'expense_tracker_flutter_app'
+    displayName: 'Build Android APK'
+  # TODO : handle iOS builds later.
+  # - script: flutter build ios --release --no-codesign
+  #   workingDirectory: 'expense_tracker_flutter_app'
+  #   displayName: 'Build iOS IPA (unsigned)'
+
+  - task: CopyFiles@2
+    inputs:
+      contents: '**/expense_tracker_flutter_app/build/app/outputs/flutter-apk/app-release.apk'
+      targetFolder: '$(Build.ArtifactStagingDirectory)'
+    displayName: 'Collect build artifacts'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: 'apk'
+      publishLocation: 'Container'
+    displayName: 'Publish artifacts for distribution'
