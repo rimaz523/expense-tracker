@@ -57,7 +57,7 @@ steps:
 
   - script: |
       curl -sL https://firebase.tools | bash
-      firebase appdistribution:distribute "$(Pipeline.Workspace)/apk/**/app-release.apk" \
+      firebase appdistribution:distribute "$(Pipeline.Workspace)/apk/expense_tracker_flutter_app/build/app/outputs/flutter-apk/app-release.apk" \
         --app "$(androidAppId)" \
         --token "$(FIREBASE_TOKEN)" \
         --groups "Testers"
