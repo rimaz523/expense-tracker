@@ -45,7 +45,7 @@ steps:
 
   - task: PublishBuildArtifacts@1
     inputs:
-      pathToPublish: '$(Build.ArtifactStagingDirectory)/**/app-release.apk'
+      pathToPublish: '$(Build.ArtifactStagingDirectory)'
       artifactName: 'apk'
       publishLocation: 'Container'
     displayName: 'Publish artifacts for distribution'
@@ -57,7 +57,7 @@ steps:
 
   - script: |
       curl -sL https://firebase.tools | bash
-      firebase appdistribution:distribute "$(Pipeline.Workspace)/apk/app-release.apk" \
+      firebase appdistribution:distribute "$(Pipeline.Workspace)/apk/**/app-release.apk" \
         --app "$(androidAppId)" \
         --token "$(FIREBASE_TOKEN)" \
         --groups "Testers"
