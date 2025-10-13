@@ -7,3 +7,9 @@ variables:
   value: expense_tracker_flutter_app/build/app/outputs/flutter-apk/app-release.apk
 - name: iosArtifactPath
   value: expense_tracker_flutter_app/build/ios/ipa/expense_tracker_flutter_app.ipa
+- name: majorVersion
+  value: '1'
+- name: minorVersion
+  value: '1'
+- name: patchVersion
+  value: '0'
