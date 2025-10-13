@@ -1,3 +1,8 @@
+parameters:
+  - name: buildVersionNumber
+    type: string
+  - name: buildVersionCode
+    type: string
 steps:
   - script: |
       git clone https://github.com/flutter/flutter.git -b stable
@@ -18,7 +23,7 @@ steps:
     workingDirectory: 'expense_tracker_flutter_app'
     displayName: 'Run Dart & Flutter tests'
 
-  - script: flutter build apk --release
+  - script: flutter build apk --release --build-name  ${{ parameters.buildVersionNumber }} --build-number ${{ parameters.buildVersionCode }}
     workingDirectory: 'expense_tracker_flutter_app'
     displayName: 'Build Android APK'
   # TODO : handle iOS builds later.

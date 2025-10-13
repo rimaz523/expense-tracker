@@ -7,6 +7,8 @@ variables:
   - template: variables/build.yml
   - template: variables/deploy.yml
 
+name: $(majorVersion).$(minorVersion).$(patchVersion)+$(Build.BuildId)
+
 stages:
   - stage: 'Build'
     pool:
@@ -17,6 +19,9 @@ stages:
         displayName: 'Build job'
         steps:
           - template: './steps/build.yml'
+            parameters:
+              buildVersionNumber: '$(majorVersion).$(minorVersion).$(patchVersion)'
+              buildVersionCode: '$(Build.BuildId)'
 
   - stage: 'Distribute'
     dependsOn: 'Build'
