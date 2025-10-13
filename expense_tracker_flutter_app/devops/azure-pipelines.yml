@@ -7,7 +7,7 @@ variables:
   - template: variables/build.yml
   - template: variables/deploy.yml
 
-name : $(majorVersion).$(minorVersion).$(patchVersion)+$(Build.BuildId)
+name: $(majorVersion).$(minorVersion).$(patchVersion)+$(Build.BuildId)
 
 stages:
   - stage: 'Build'
