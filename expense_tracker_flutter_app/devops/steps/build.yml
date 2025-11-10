@@ -23,13 +23,13 @@ steps:
     workingDirectory: 'expense_tracker_flutter_app'
     displayName: 'Run Dart & Flutter tests'
 
+  - script: flutter build ipa --release
+    workingDirectory: 'expense_tracker_flutter_app'
+    displayName: 'Build iOS IPA'
+
   - script: flutter build apk --release --build-name  ${{ parameters.buildVersionNumber }} --build-number ${{ parameters.buildVersionCode }}
     workingDirectory: 'expense_tracker_flutter_app'
     displayName: 'Build Android APK'
-  # TODO : handle iOS builds later.
-  # - script: flutter build ios --release --no-codesign
-  #   workingDirectory: 'expense_tracker_flutter_app'
-  #   displayName: 'Build iOS IPA (unsigned)'
 
   - task: CopyFiles@2
     inputs:
